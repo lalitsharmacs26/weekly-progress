@@ -4,111 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Checker | My Growth Journey</title>
+    <meta name="theme-color" content="#080b14">
+    <title>Weekly Checker Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="container">
 
-    <div class="container">
-        <header class="topbar">
-            <div>
-                <p class="eyebrow">YOUR PERSONAL GROWTH PLAN</p>
-                <h1>Weekly<span>Checker.</span></h1>
-                <p class="subtitle">39 weeks. Small steps. Big progress.</p>
-            </div>
-            <div class="status">● YOUR JOURNEY</div>
-        </header>
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">YOUR PERSONAL GROWTH PLAN</p>
+            <h1>Weekly<span>Checker.</span></h1>
+            <p class="muted">39 weeks. Small steps. Big progress.</p>
+        </div>
+        <button id="exportBtn" class="button primary">↓ Export Progress</button>
+    </header>
 
-        <section class="hero">
-            <div>
-                <p class="eyebrow">YOUR ROADMAP</p>
-                <h2 id="weekTitle">Week 1</h2>
-                <p id="weekDates" class="week-dates"></p>
-                <p id="weekDescription">Start your journey with consistency.</p>
-            </div>
+    <section class="hero panel">
+        <div>
+            <p class="eyebrow">YOUR ROADMAP</p>
+            <h2 id="weekTitle">Week 1</h2>
+            <p id="weekDates" class="week-dates"></p>
+            <p id="weekDescription" class="muted"></p>
+        </div>
+        <div class="week-picker">
+            <label for="weekSelect">SELECT WEEK</label>
+            <select id="weekSelect"></select>
+        </div>
+    </section>
 
-            <div class="week-picker">
-                <label for="weekSelect">SELECT WEEK</label>
-                <select id="weekSelect"></select>
-            </div>
-        </section>
+    <section class="stats">
+        <article class="stat-card">
+            <p>WEEKLY PROGRESS</p>
+            <h2 id="weeklyProgress">0%</h2>
+            <div class="progress-track"><div id="weeklyBar" class="progress-fill"></div></div>
+        </article>
+        <article class="stat-card">
+            <p>TASKS COMPLETED</p>
+            <h2 id="tasksCompleted">0/6</h2>
+            <p class="muted">Selected week</p>
+        </article>
+        <article class="stat-card">
+            <p>OVERALL PROGRESS</p>
+            <h2 id="overallProgress">0%</h2>
+            <div class="progress-track"><div id="overallBar" class="progress-fill"></div></div>
+        </article>
+    </section>
 
-        <section class="stats">
-            <div class="stat-card">
-                <p>WEEKLY PROGRESS</p>
-                <h2 id="weeklyProgress">0%</h2>
-                <div class="progress-track">
-                    <div id="weeklyBar" class="progress-fill"></div>
+    <section class="feature-grid">
+        <article class="panel streak-card">
+            <p class="eyebrow">KEEP SHOWING UP</p>
+            <div class="streak-line">
+                <span class="flame">🔥</span>
+                <div>
+                    <h2><span id="streakCount">0</span> day streak</h2>
+                    <p class="muted">Complete today's focus to build your streak.</p>
                 </div>
             </div>
+        </article>
 
-            <div class="stat-card">
-                <p>TASKS COMPLETED</p>
-                <h2 id="tasksCompleted">0/6</h2>
-                <span class="muted">This week</span>
-            </div>
+        <article class="panel today-card">
+            <p class="eyebrow">DAILY HABITS</p>
+            <h2>Today's Focus</h2>
+            <p id="todayDate" class="muted"></p>
+            <div id="dailyTasks" class="daily-tasks"></div>
+            <p id="dailyStatus" class="save-status"></p>
+        </article>
+    </section>
 
-            <div class="stat-card">
-                <p>OVERALL PROGRESS</p>
-                <h2 id="overallProgress">0%</h2>
-                <div class="progress-track">
-                    <div id="overallBar" class="progress-fill"></div>
-                </div>
-            </div>
-        </section>
-
-        <main class="content-grid">
-            <section class="panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">STAY CONSISTENT</p>
-                        <h2>This Week's Goals</h2>
-                    </div>
-                    <span id="taskCount" class="count-pill">0/6</span>
-                </div>
-
-                <div id="taskList" class="task-list"></div>
-
-                <div id="completionMessage" class="completion-message">
-                    Every small step counts. Keep going!
-                </div>
-            </section>
-
-            <section class="panel notes-panel">
-                <p class="eyebrow">YOUR THOUGHTS</p>
-                <h2>Weekly Notes</h2>
-                <p class="muted">Record your learnings, ideas and improvements.</p>
-
-                <textarea id="weekNotes"
-                    placeholder="What did you learn this week? What can you improve?"
-                    rows="8"></textarea>
-
-                <div class="notes-footer">
-                    <span id="saveStatus">Saved in your browser</span>
-                    <button id="clearNotes" class="secondary-button" type="button">
-                        Clear notes
-                    </button>
-                </div>
-            </section>
-        </main>
-
-        <section class="panel roadmap-panel">
+    <main class="content-grid">
+        <section class="panel">
             <div class="section-heading">
                 <div>
-                    <p class="eyebrow">39-WEEK JOURNEY</p>
-                    <h2>Your Roadmap</h2>
+                    <p class="eyebrow">STAY CONSISTENT</p>
+                    <h2>This Week's Goals</h2>
                 </div>
-                <span class="muted">Select any week</span>
+                <span id="taskCount" class="pill">0/6</span>
             </div>
-            <div id="roadmap" class="roadmap"></div>
+            <div id="taskList" class="task-list"></div>
+            <div id="completionMessage" class="message"></div>
         </section>
 
-        <footer>
-            <p>Built for consistency, not perfection.</p>
-            <p>Your progress is saved in this browser.</p>
-        </footer>
-    </div>
+        <section class="panel">
+            <p class="eyebrow">YOUR THOUGHTS</p>
+            <h2>Weekly Notes</h2>
+            <p class="muted">Write what you learned and what to improve.</p>
+            <textarea id="weekNotes" rows="7" placeholder="What did you learn this week?"></textarea>
+            <div class="notes-footer">
+                <span id="saveStatus" class="save-status">Saved in your browser</span>
+                <button id="clearNotes" class="button secondary">Clear notes</button>
+            </div>
+        </section>
+    </main>
 
-    <script src="script.js"></script>
+    <section class="panel timer-panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">FOCUS MODE</p>
+                <h2>Study Timer</h2>
+                <p class="muted">Focus on one task at a time.</p>
+            </div>
+            <span id="timerMode" class="pill">Focus session</span>
+        </div>
+        <div class="timer-body">
+            <div id="timerDisplay" class="timer-display">25:00</div>
+            <div class="timer-controls">
+                <button id="startTimer" class="button primary">Start</button>
+                <button id="pauseTimer" class="button secondary">Pause</button>
+                <button id="resetTimer" class="button secondary">Reset</button>
+            </div>
+            <div class="timer-modes">
+                <button class="mode-button active" data-minutes="25" data-mode="Focus session">25 min focus</button>
+                <button class="mode-button" data-minutes="5" data-mode="Short break">5 min break</button>
+            </div>
+            <p id="timerMessage" class="muted">Ready when you are. Let's focus!</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">YOUR LEARNING RESOURCES</p>
+                <h2>Quick Links</h2>
+            </div>
+        </div>
+        <div class="quick-links">
+            <a class="quick-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">⌘</span><span><strong>GitHub</strong><small>Code & repositories</small></span><span class="arrow">↗</span>
+            </a>
+            <a class="quick-link" href="https://leetcode.com/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">⌨</span><span><strong>LeetCode</strong><small>Problem solving</small></span><span class="arrow">↗</span>
+            </a>
+            <a class="quick-link" href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">📘</span><span><strong>MDN Web Docs</strong><small>Web development guide</small></span><span class="arrow">↗</span>
+            </a>
+            <a class="quick-link" href="https://www.w3schools.com/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">🌐</span><span><strong>W3Schools</strong><small>Beginner tutorials</small></span><span class="arrow">↗</span>
+            </a>
+            <a class="quick-link" href="https://www.freecodecamp.org/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">🎯</span><span><strong>freeCodeCamp</strong><small>Learn by building</small></span><span class="arrow">↗</span>
+            </a>
+            <a class="quick-link" href="https://www.bbc.co.uk/learningenglish" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">🎙</span><span><strong>BBC Learning English</strong><small>English practice</small></span><span class="arrow">↗</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="panel analytics-panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">SEE YOUR PROGRESS</p>
+                <h2>Progress Analytics</h2>
+                <p class="muted">Completion percentage for each week.</p>
+            </div>
+        </div>
+        <div id="analytics" class="analytics"></div>
+        <p class="muted chart-note">Each bar represents one week. Select a bar to open that week.</p>
+    </section>
+
+    <section class="panel roadmap-panel">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">39-WEEK JOURNEY</p>
+                <h2>Your Roadmap</h2>
+            </div>
+            <span class="muted">Select any week</span>
+        </div>
+        <div id="roadmap" class="roadmap"></div>
+    </section>
+
+    <footer>
+        <p>Built for consistency, not perfection.</p>
+        <p id="footerStatus">Your progress is saved in this browser.</p>
+    </footer>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
