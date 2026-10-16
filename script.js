@@ -1,609 +1,742 @@
 
-const STORAGE_KEY = "weeklyChecker_v2";
-
-const $ = id => document.getElementById(id);
+const TOTAL_WEEKS = 39;
+const TASKS_PER_WEEK = 6;
+const START_DATE = new Date(2026, 9, 26); // Monday, 26 October 2026
+const STORAGE_KEY = "weeklyChecker_v3";
 
 const plans = [
     {
-        milestone: "HTML Foundation",
-        coding: "HTML document structure aur headings ki practice kar",
-        concept: "Semantic HTML, headings aur paragraphs explain kar",
-        project: "Personal profile page bana",
-        speaking: "English mein apna introduction 1 minute bol",
-        recording: "Apni introduction recording sun aur 3 improvements note kar",
-        revision: "HTML tags revise kar aur next week ka CSS plan bana"
+        title: "Start with HTML",
+        description: "Set up your routine and strengthen HTML fundamentals.",
+        tasks: [
+            "Study HTML structure, headings, paragraphs and links.",
+            "Practice images, lists and semantic HTML tags.",
+            "Build a simple personal profile webpage.",
+            "Learn 5 English words and use them in sentences.",
+            "Speak about yourself in English for 2 minutes.",
+            "Revise everything you learned this week."
+        ]
     },
     {
-        milestone: "CSS Foundation",
-        coding: "Selectors, colors, fonts aur CSS units ki practice kar",
-        concept: "Margin, padding, border aur box model explain kar",
-        project: "Profile page ko CSS se style kar",
-        speaking: "Apne profile page ko English mein explain kar",
-        recording: "Pronunciation aur unnecessary pauses check kar",
-        revision: "Selectors revise kar aur Flexbox ke examples likh"
+        title: "HTML Forms and Tables",
+        description: "Build useful pages with forms and tables.",
+        tasks: [
+            "Learn HTML tables, rows, columns and captions.",
+            "Practice forms, labels, inputs and buttons.",
+            "Build a student registration form.",
+            "Learn 5 English words related to technology.",
+            "Give a 2-minute spoken introduction.",
+            "Review HTML and improve your previous project."
+        ]
     },
     {
-        milestone: "Responsive Design",
-        coding: "Flexbox, Grid aur media queries practice kar",
-        concept: "Responsive design aur mobile-first layout explain kar",
-        project: "Portfolio ko mobile-friendly bana",
-        speaking: "Responsive website par 2 minute bol",
-        recording: "Apni clarity aur sentence completion check kar",
-        revision: "Portfolio phone aur laptop par test kar"
+        title: "CSS Foundations",
+        description: "Start styling your websites with CSS.",
+        tasks: [
+            "Learn CSS selectors, colors and backgrounds.",
+            "Practice margins, padding and borders.",
+            "Learn font properties and text styling.",
+            "Style your personal profile webpage.",
+            "Explain your webpage in English for 2 minutes.",
+            "Revise CSS basics and correct mistakes."
+        ]
     },
     {
-        milestone: "JavaScript Basics",
-        coding: "Variables, data types, operators aur type conversion practice kar",
-        concept: "let, const aur data types explain kar",
-        project: "JavaScript-based basic calculator bana",
-        speaking: "Calculator ka logic English mein explain kar",
-        recording: "Technical words ki pronunciation check kar",
-        revision: "Variables aur operators par 10 practice questions kar"
+        title: "CSS Layout",
+        description: "Understand how to arrange page elements.",
+        tasks: [
+            "Learn display, width, height and box sizing.",
+            "Practice Flexbox alignment and spacing.",
+            "Build a navigation bar using CSS.",
+            "Create a simple card layout.",
+            "Describe your CSS layout in English.",
+            "Revise Flexbox and improve the layout."
+        ]
     },
     {
-        milestone: "Conditions and Loops",
-        coding: "if-else, switch, for aur while ki problems solve kar",
-        concept: "Conditions aur loops mein difference explain kar",
-        project: "Number guessing game bana",
-        speaking: "Game ke rules aur logic explain kar",
-        recording: "Check kar ki explanation step-by-step thi ya nahi",
-        revision: "Loops aur conditions ke 10 programs revise kar"
+        title: "Responsive Design",
+        description: "Make your website work on mobile screens.",
+        tasks: [
+            "Learn media queries and responsive units.",
+            "Make your navigation mobile-friendly.",
+            "Build a responsive landing page.",
+            "Test your website at different screen sizes.",
+            "Practice speaking about responsive design.",
+            "Fix mobile layout issues and revise."
+        ]
     },
     {
-        milestone: "Functions",
-        coding: "Parameters, return values aur arrow functions practice kar",
-        concept: "Function call aur return statement explain kar",
-        project: "Function-based calculator bana",
-        speaking: "Functions ko real-life example se explain kar",
-        recording: "Filler words jaise 'umm' aur 'actually' note kar",
-        revision: "Functions ke 8 programs likh"
+        title: "CSS Polish",
+        description: "Improve visual quality and consistency.",
+        tasks: [
+            "Practice transitions and hover effects.",
+            "Learn shadows, gradients and border radius.",
+            "Create a polished hero section.",
+            "Review spacing and typography.",
+            "Explain your design choices aloud.",
+            "Polish and revise your landing page."
+        ]
     },
     {
-        milestone: "Arrays and Objects",
-        coding: "Arrays, objects aur basic array methods practice kar",
-        concept: "Array aur object ke use cases explain kar",
-        project: "Student marks summary program bana",
-        speaking: "Student marks program ko explain kar",
-        recording: "Explanation ko concise banane ki practice kar",
-        revision: "Arrays aur objects par practice questions solve kar"
+        title: "JavaScript Introduction",
+        description: "Begin learning programming for the web.",
+        tasks: [
+            "Understand what JavaScript does in a website.",
+            "Learn variables, let, const and data types.",
+            "Practice console.log and simple expressions.",
+            "Write 5 small JavaScript examples.",
+            "Explain variables in simple English.",
+            "Revise all JavaScript basics learned so far."
+        ]
     },
     {
-        milestone: "JavaScript Mini Project",
-        coding: "DOM selection aur click events practice kar",
-        concept: "DOM aur event listeners explain kar",
-        project: "Interactive to-do list bana",
-        speaking: "To-do list ka demo English mein de",
-        recording: "Demo ke dauran confidence aur clarity check kar",
-        revision: "Month 1–2 ke concepts revise kar"
+        title: "Conditions",
+        description: "Teach your programs to make decisions.",
+        tasks: [
+            "Learn comparison and logical operators.",
+            "Practice if, else if and else.",
+            "Write a simple marks and grade checker.",
+            "Solve 5 beginner condition exercises.",
+            "Explain one program aloud in English.",
+            "Revise conditions and fix errors."
+        ]
     },
     {
-        milestone: "DOM Fundamentals",
-        coding: "querySelector, textContent aur classList practice kar",
-        concept: "HTML aur DOM ke relationship ko explain kar",
-        project: "Interactive quiz interface bana",
-        speaking: "Quiz ke features explain kar",
-        recording: "Apni explanation ki speed review kar",
-        revision: "DOM methods ka short reference note bana"
+        title: "Loops",
+        description: "Repeat tasks using programming loops.",
+        tasks: [
+            "Understand for and while loops.",
+            "Practice counting and number patterns.",
+            "Write a multiplication table program.",
+            "Solve 5 beginner loop exercises.",
+            "Explain how one loop works.",
+            "Revise conditions and loops together."
+        ]
     },
     {
-        milestone: "Events and Forms",
-        coding: "Form submit, input events aur validation practice kar",
-        concept: "Event handling aur preventDefault explain kar",
-        project: "Registration form with validation bana",
-        speaking: "Form validation ka process explain kar",
-        recording: "Difficult words ko dobara bolne ki practice kar",
-        revision: "Invalid input ke 5 test cases likh"
+        title: "Functions",
+        description: "Organize your JavaScript into reusable blocks.",
+        tasks: [
+            "Learn function declarations and parameters.",
+            "Practice return values.",
+            "Write 5 small reusable functions.",
+            "Build a simple calculator function.",
+            "Explain parameters and return values aloud.",
+            "Revise functions and earlier topics."
+        ]
     },
     {
-        milestone: "Array Methods",
-        coding: "map, filter, find aur forEach practice kar",
-        concept: "map aur filter ke differences explain kar",
-        project: "Searchable student list bana",
-        speaking: "Search feature ka logic explain kar",
-        recording: "Sentence structure aur grammar review kar",
-        revision: "Array methods par 10 small exercises kar"
+        title: "Arrays",
+        description: "Store and work with collections of data.",
+        tasks: [
+            "Learn arrays and array indexes.",
+            "Practice push, pop and length.",
+            "Loop through an array of names.",
+            "Write a small marks list program.",
+            "Explain arrays in your own words.",
+            "Revise array exercises."
+        ]
     },
     {
-        milestone: "Async JavaScript",
-        coding: "Promises, async/await aur try/catch practice kar",
-        concept: "Synchronous aur asynchronous code explain kar",
-        project: "Loading aur error states wala demo bana",
-        speaking: "Asynchronous code ko simple English mein explain kar",
-        recording: "Concept ko bina technical jargon ke explain kar",
-        revision: "Promise aur async/await examples revise kar"
+        title: "Objects",
+        description: "Represent structured information in JavaScript.",
+        tasks: [
+            "Learn objects and key-value pairs.",
+            "Practice reading and updating properties.",
+            "Create a student object.",
+            "Combine arrays and objects in a practice task.",
+            "Describe your student object in English.",
+            "Revise arrays and objects."
+        ]
     },
     {
-        milestone: "Working with APIs",
-        coding: "fetch aur JSON response handle kar",
-        concept: "API request aur response explain kar",
-        project: "Public API se data dikhane wali app bana",
-        speaking: "API se data kaise aata hai, explain kar",
-        recording: "Apne explanation mein logical sequence check kar",
-        revision: "Loading, success aur error states test kar"
+        title: "DOM Basics",
+        description: "Connect JavaScript to your HTML page.",
+        tasks: [
+            "Understand the Document Object Model.",
+            "Practice querySelector and getElementById.",
+            "Change text and styles using JavaScript.",
+            "Build a button that changes page text.",
+            "Explain how JavaScript updates HTML.",
+            "Revise DOM selection and updates."
+        ]
     },
     {
-        milestone: "Weather App",
-        coding: "Search input aur API data rendering practice kar",
-        concept: "API error handling aur HTTP status basics explain kar",
-        project: "Searchable Weather App complete kar",
-        speaking: "Weather App ka 2-minute demo record kar",
-        recording: "Demo mein features aur limitations clearly bol",
-        revision: "Weather App ke bugs fix kar"
+        title: "Events",
+        description: "Make webpages respond to user actions.",
+        tasks: [
+            "Learn click and input events.",
+            "Practice addEventListener.",
+            "Build an interactive counter.",
+            "Create a button-based theme switcher.",
+            "Explain event handling aloud.",
+            "Revise DOM and event concepts."
+        ]
     },
     {
-        milestone: "Git and GitHub",
-        coding: "git init, add, commit, status aur push practice kar",
-        concept: "Git aur GitHub ka difference explain kar",
-        project: "Apne projects ko GitHub repositories mein upload kar",
-        speaking: "Apne GitHub portfolio ka overview de",
-        recording: "Apna introduction aur project summary compare kar",
-        revision: "README mein setup steps aur screenshots add kar"
+        title: "Form Validation",
+        description: "Make forms more useful and user-friendly.",
+        tasks: [
+            "Learn form submit events.",
+            "Practice checking empty input fields.",
+            "Show useful validation messages.",
+            "Build a basic registration form demo.",
+            "Explain the validation process in English.",
+            "Revise forms, DOM and events."
+        ]
     },
     {
-        milestone: "Deployment and Portfolio",
-        coding: "Deployment aur browser console errors fix kar",
-        concept: "Repository, hosting aur deployment explain kar",
-        project: "Portfolio aur mini-projects ko live publish kar",
-        speaking: "Portfolio ka 2-minute presentation de",
-        recording: "Broken links aur unclear sentences identify kar",
-        revision: "Resume ke liye apne projects ke points likh"
+        title: "Small JavaScript Project",
+        description: "Combine your skills into a working project.",
+        tasks: [
+            "Plan a small interactive webpage.",
+            "Build the HTML structure.",
+            "Style the webpage with CSS.",
+            "Add JavaScript interactions.",
+            "Explain the project for 3 minutes.",
+            "Test, fix and revise the complete project."
+        ]
     },
     {
-        milestone: "Internship Preparation",
-        coding: "JavaScript fundamentals ke interview questions solve kar",
-        concept: "Apne strongest project ka technical explanation de",
-        project: "Portfolio mein project descriptions aur live links improve kar",
-        speaking: "Common interview questions ke answers practice kar",
-        recording: "Mock interview record karke review kar",
-        revision: "Eligible frontend internships ki shortlist bana"
+        title: "Git and GitHub",
+        description: "Learn how to save and share your code.",
+        tasks: [
+            "Understand Git and version control.",
+            "Install or open Git and check its setup.",
+            "Learn repositories, commits and status.",
+            "Create or update a GitHub repository.",
+            "Practice explaining your project repository.",
+            "Review Git basics and organize your files."
+        ]
     },
     {
-        milestone: "JavaScript Revision",
-        coding: "Functions, arrays aur objects ke mixed problems solve kar",
-        concept: "var, let aur const explain kar",
-        project: "JavaScript mini-project ka code refactor kar",
-        speaking: "Apne code mein ek difficult bug kaise solve kiya, explain kar",
-        recording: "Answer ko structured aur concise bana",
-        revision: "Weak JavaScript topics ki list bana"
+        title: "Portfolio Website",
+        description: "Start creating a professional online presence.",
+        tasks: [
+            "Plan your portfolio sections.",
+            "Create an About Me section.",
+            "Add projects and skills to your portfolio.",
+            "Make the portfolio responsive.",
+            "Practice introducing your portfolio in English.",
+            "Publish and test the portfolio."
+        ]
     },
     {
-        milestone: "React Introduction",
-        coding: "React setup, JSX aur components practice kar",
-        concept: "Components aur reusable UI explain kar",
-        project: "Portfolio ka simple React version start kar",
-        speaking: "React choose karne ka reason explain kar",
-        recording: "React terms ki pronunciation practice kar",
-        revision: "JSX aur components ka revision note bana"
+        title: "Web Fundamentals Revision",
+        description: "Strengthen your HTML, CSS and JavaScript foundation.",
+        tasks: [
+            "Revise semantic HTML and forms.",
+            "Revise CSS layout and responsive design.",
+            "Revise JavaScript conditions and loops.",
+            "Revise functions, arrays and objects.",
+            "Explain a project without reading notes.",
+            "Fix 3 issues in your previous projects."
+        ]
     },
     {
-        milestone: "React Props and State",
-        coding: "Props, useState aur click events practice kar",
-        concept: "Props aur state ka difference explain kar",
-        project: "React counter aur reusable card components bana",
-        speaking: "State update kaise hoti hai, explain kar",
-        recording: "Technical answer ko example ke saath improve kar",
-        revision: "React components ko independently test kar"
+        title: "C Programming Revision",
+        description: "Strengthen your college programming fundamentals.",
+        tasks: [
+            "Revise variables, data types and operators in C.",
+            "Practice if-else and switch statements.",
+            "Solve beginner loop exercises in C.",
+            "Practice arrays and strings in C.",
+            "Explain one C program aloud.",
+            "Revise mistakes and organize your solutions."
+        ]
     },
     {
-        milestone: "React Forms and Effects",
-        coding: "Controlled forms aur useEffect practice kar",
-        concept: "React mein effects aur state explain kar",
-        project: "React task list bana",
-        speaking: "Task list ka user flow explain kar",
-        recording: "Demo mein problem aur solution clearly bol",
-        revision: "Form validation aur state bugs fix kar"
+        title: "Problem Solving",
+        description: "Build logical thinking through small problems.",
+        tasks: [
+            "Solve 3 beginner number problems.",
+            "Practice reversing a number.",
+            "Practice sum and product of digits.",
+            "Solve 3 problems using loops.",
+            "Explain your solution step by step.",
+            "Review errors and note what you learned."
+        ]
     },
     {
-        milestone: "React API Integration",
-        coding: "React mein fetch, loading aur error states practice kar",
-        concept: "API data ko components mein render karna explain kar",
-        project: "React mein searchable API-based app bana",
-        speaking: "Data fetching ka flow explain kar",
-        recording: "2-minute project presentation improve kar",
-        revision: "React aur JavaScript concepts revise kar"
+        title: "DSA Introduction",
+        description: "Get a beginner-friendly introduction to data structures.",
+        tasks: [
+            "Understand what data structures and algorithms mean.",
+            "Revise arrays and their operations.",
+            "Learn linear search.",
+            "Practice finding minimum and maximum values.",
+            "Explain linear search in English.",
+            "Revise the problems you solved."
+        ]
     },
     {
-        milestone: "React Routing and UI",
-        coding: "Multi-page navigation aur reusable layouts practice kar",
-        concept: "Client-side routing explain kar",
-        project: "Home, Projects aur About pages wala React site bana",
-        speaking: "Website ke pages aur navigation explain kar",
-        recording: "Presentation mein clear transitions practice kar",
-        revision: "All links aur responsive layouts test kar"
+        title: "Searching and Sorting",
+        description: "Learn the basics of finding and ordering data.",
+        tasks: [
+            "Practice linear search.",
+            "Understand binary search prerequisites.",
+            "Learn the idea behind bubble sort.",
+            "Trace a sorting example on paper.",
+            "Explain one search or sort algorithm.",
+            "Revise searching and sorting basics."
+        ]
     },
     {
-        milestone: "React Project Polish",
-        coding: "Component structure aur error handling improve kar",
-        concept: "Reusable components aur maintainable code explain kar",
-        project: "React project ko deploy kar aur README likh",
-        speaking: "Project demo bina notes padhe de",
-        recording: "Mock interview ke 5 answers review kar",
-        revision: "Backend learning ke prerequisites check kar"
+        title: "Project Improvement",
+        description: "Make your projects clearer and more reliable.",
+        tasks: [
+            "Choose one existing project to improve.",
+            "Improve its layout and readability.",
+            "Check mobile responsiveness.",
+            "Test the main interactions.",
+            "Write a clear project description.",
+            "Update your GitHub repository."
+        ]
     },
     {
-        milestone: "Node.js Fundamentals",
-        coding: "Node.js, modules, npm aur basic scripts practice kar",
-        concept: "Browser JavaScript aur Node.js explain kar",
-        project: "Node.js command-line notes app bana",
-        speaking: "Node.js ka use kyun hota hai, explain kar",
-        recording: "Technical explanation ki clarity check kar",
-        revision: "npm scripts aur modules revise kar"
+        title: "Communication Basics",
+        description: "Practice speaking clearly and confidently.",
+        tasks: [
+            "Practice a 2-minute self-introduction.",
+            "Learn 5 useful everyday English phrases.",
+            "Describe your daily routine in English.",
+            "Read aloud for 10 minutes.",
+            "Record a short spoken explanation.",
+            "Review your recording and note improvements."
+        ]
     },
     {
-        milestone: "Express.js Server",
-        coding: "Express app aur GET/POST routes practice kar",
-        concept: "Request, response aur middleware explain kar",
-        project: "Basic Express API bana",
-        speaking: "API endpoint kaise kaam karta hai, explain kar",
-        recording: "HTTP methods ko clearly pronounce kar",
-        revision: "Routes ko Postman ya equivalent tool se test kar"
+        title: "Speaking Practice",
+        description: "Build comfort explaining familiar topics.",
+        tasks: [
+            "Speak about your hobbies for 2 minutes.",
+            "Explain one project in simple English.",
+            "Practice asking and answering 5 questions.",
+            "Learn 5 words related to your studies.",
+            "Record a short English practice session.",
+            "Review clarity, pace and pronunciation."
+        ]
     },
     {
-        milestone: "REST APIs and Validation",
-        coding: "GET, POST, PATCH aur DELETE endpoints implement kar",
-        concept: "REST API aur input validation explain kar",
-        project: "In-memory task management API bana",
-        speaking: "CRUD operations ka demo de",
-        recording: "Interview-style API questions answer kar",
-        revision: "Invalid requests aur error responses test kar"
+        title: "Presentation Skills",
+        description: "Learn to explain your work in an organized way.",
+        tasks: [
+            "Prepare a short project introduction.",
+            "Explain the problem your project solves.",
+            "Describe the tools you used.",
+            "Practice a 3-minute presentation.",
+            "Record your presentation once.",
+            "Revise your explanation for clarity."
+        ]
     },
     {
-        milestone: "SQL and Database",
-        coding: "SELECT, INSERT, UPDATE, DELETE aur basic JOIN practice kar",
-        concept: "Tables, primary keys aur relationships explain kar",
-        project: "Study tasks ke liye database schema bana",
-        speaking: "Database mein task data kaise store hoga, explain kar",
-        recording: "SQL concepts ko simple words mein samjha",
-        revision: "SQL ke 10 queries solve kar"
+        title: "Interview Foundations",
+        description: "Prepare answers to common beginner questions.",
+        tasks: [
+            "Draft your self-introduction.",
+            "Prepare an answer about your strengths.",
+            "Explain your favorite project.",
+            "Practice 5 basic technical questions.",
+            "Answer questions aloud without reading.",
+            "Review and improve your answers."
+        ]
     },
     {
-        milestone: "Backend Database Integration",
-        coding: "Express API ko database se connect kar",
-        concept: "CRUD operations aur persistent storage explain kar",
-        project: "Database-backed task API bana",
-        speaking: "Frontend se database tak data flow explain kar",
-        recording: "Project explanation ka flow improve kar",
-        revision: "Connection errors aur invalid data test kar"
+        title: "Build a Useful Website",
+        description: "Create something that solves a practical problem.",
+        tasks: [
+            "Choose a simple real-world problem.",
+            "Plan the website sections and features.",
+            "Build the HTML structure.",
+            "Style the page with responsive CSS.",
+            "Add an interaction if appropriate.",
+            "Test the site and record improvements."
+        ]
     },
     {
-        milestone: "Authentication Basics",
-        coding: "Signup/login flow aur password hashing concepts practice kar",
-        concept: "Authentication aur authorization ka difference explain kar",
-        project: "Secure authentication demo ka backend plan kar",
-        speaking: "Login flow ka high-level overview de",
-        recording: "Security concepts ko accurately explain kar",
-        revision: "Secrets ko environment variables mein rakhne ka practice kar"
+        title: "Website Finishing",
+        description: "Polish a project for sharing with others.",
+        tasks: [
+            "Check all links and navigation.",
+            "Improve spacing and readability.",
+            "Check mobile and desktop layouts.",
+            "Add meaningful page titles and alt text.",
+            "Prepare a short project explanation.",
+            "Publish or update the finished website."
+        ]
     },
     {
-        milestone: "Full-Stack Integration",
-        coding: "React se Express API calls practice kar",
-        concept: "Frontend, backend aur database ka relationship explain kar",
-        project: "React frontend ko task API se connect kar",
-        speaking: "Full-stack architecture ka diagram explain kar",
-        recording: "Project architecture ka mock interview answer de",
-        revision: "API integration aur errors test kar"
+        title: "Debugging Skills",
+        description: "Get better at finding and fixing mistakes.",
+        tasks: [
+            "Learn to read browser console errors.",
+            "Practice tracing JavaScript variables.",
+            "Fix 3 small coding errors.",
+            "Check HTML and CSS for common mistakes.",
+            "Explain one bug and its solution.",
+            "Write down debugging lessons learned."
+        ]
     },
     {
-        milestone: "Main Project Planning",
-        coding: "Study Planner ki features aur data model define kar",
-        concept: "Project scope aur user stories explain kar",
-        project: "Study Planner ka UI aur task list plan kar",
-        speaking: "Project ka problem statement pitch kar",
-        recording: "Pitch ko short aur understandable bana",
-        revision: "Project ke must-have aur optional features decide kar"
+        title: "Code Quality",
+        description: "Make your code easier to read and maintain.",
+        tasks: [
+            "Use meaningful variable and function names.",
+            "Organize HTML, CSS and JS into files.",
+            "Remove unused code from one project.",
+            "Use consistent indentation.",
+            "Explain your code structure aloud.",
+            "Review and improve one old project."
+        ]
     },
     {
-        milestone: "Main Project Frontend",
-        coding: "Responsive dashboard, forms aur task components build kar",
-        concept: "Component reuse aur state management explain kar",
-        project: "Study Planner frontend ka main flow complete kar",
-        speaking: "Frontend ka user journey demo kar",
-        recording: "UI demo ko 2 minutes mein complete kar",
-        revision: "Mobile layout aur form validation test kar"
+        title: "GitHub Portfolio",
+        description: "Present your work in a clear and organized way.",
+        tasks: [
+            "Choose your best projects.",
+            "Write a useful README for one project.",
+            "Add screenshots where useful.",
+            "Check repository names and descriptions.",
+            "Practice explaining your GitHub profile.",
+            "Review all project links."
+        ]
     },
     {
-        milestone: "Main Project Backend",
-        coding: "Study Planner API routes aur validation build kar",
-        concept: "CRUD endpoints aur error handling explain kar",
-        project: "Backend aur database operations implement kar",
-        speaking: "Ek API request ka end-to-end flow explain kar",
-        recording: "Backend concepts ke interview answers practice kar",
-        revision: "Routes aur database records verify kar"
+        title: "Internship Research",
+        description: "Understand entry-level opportunities and requirements.",
+        tasks: [
+            "Explore beginner web development internship listings.",
+            "Write down common required skills.",
+            "Compare your current skills with requirements.",
+            "Identify 3 areas to improve.",
+            "Practice explaining your learning journey.",
+            "Create a realistic next-step learning plan."
+        ]
     },
     {
-        milestone: "Full-Stack Testing",
-        coding: "Frontend/backend integration bugs fix kar",
-        concept: "Testing, validation aur secure data handling explain kar",
-        project: "Study Planner ka create/edit/delete flow test kar",
-        speaking: "Project ki ek problem aur uska solution explain kar",
-        recording: "Answer ko situation, action aur result mein structure kar",
-        revision: "Known bugs aur fixes document kar"
+        title: "Resume Basics",
+        description: "Prepare a truthful, beginner-friendly resume.",
+        tasks: [
+            "Draft your education section.",
+            "List skills you can actually demonstrate.",
+            "Describe your projects clearly.",
+            "Add relevant links to your portfolio.",
+            "Practice a short introduction about yourself.",
+            "Proofread and improve your resume."
+        ]
     },
     {
-        milestone: "Deployment and Documentation",
-        coding: "Frontend aur backend deployment setup practice kar",
-        concept: "Environment variables aur production deployment explain kar",
-        project: "Study Planner deploy kar aur README complete kar",
-        speaking: "Live project ka complete demo record kar",
-        recording: "README aur demo mein missing information note kar",
-        revision: "Deployment errors fix kar aur live links test kar"
+        title: "Mock Interview",
+        description: "Practice answering questions with confidence.",
+        tasks: [
+            "Answer 5 HTML and CSS questions.",
+            "Answer 5 JavaScript basics questions.",
+            "Explain one project from start to finish.",
+            "Practice a 2-minute self-introduction.",
+            "Record a mock interview session.",
+            "Review answers and note topics to revise."
+        ]
     },
     {
-        milestone: "Resume and Portfolio",
-        coding: "Projects ka code review aur cleanup kar",
-        concept: "Resume mein projects aur measurable outcomes explain kar",
-        project: "One-page resume aur portfolio update kar",
-        speaking: "60-second professional introduction practice kar",
-        recording: "Introduction ko confident aur natural bana",
-        revision: "GitHub repositories, READMEs aur links verify kar"
+        title: "Final Project",
+        description: "Bring your learning together in one project.",
+        tasks: [
+            "Choose your final project idea.",
+            "Plan its pages and features.",
+            "Build and style the main interface.",
+            "Add and test the required interactions.",
+            "Prepare a project presentation.",
+            "Test the project and publish it."
+        ]
     },
     {
-        milestone: "Technical Interview Practice",
-        coding: "JavaScript, arrays, functions aur basic problem-solving practice kar",
-        concept: "Apne project ki architecture aur trade-offs explain kar",
-        project: "Ek project feature improve karke code commit kar",
-        speaking: "10 common interview questions ke answers bol",
-        recording: "Mock interview mein weak answers identify kar",
-        revision: "Weak technical topics ko dobara revise kar"
-    },
-    {
-        milestone: "Internship Applications",
-        coding: "Targeted job descriptions ke required skills revise kar",
-        concept: "Apne skills ko internship requirements se map kar",
-        project: "Portfolio aur application materials final check kar",
-        speaking: "Recruiter introduction aur project pitch practice kar",
-        recording: "Interview answers ko clear aur concise bana",
-        revision: "Suitable openings apply kar aur follow-ups track kar"
-    },
-    {
-        milestone: "Final Review and Next Steps",
-        coding: "Apne strongest project ko bina tutorial ke explain kar",
-        concept: "Apni strengths aur learning gaps identify kar",
-        project: "Portfolio ke final bugs aur presentation improve kar",
-        speaking: "Full mock interview aur project demo complete kar",
-        recording: "Month 1 ki recording se compare karke improvement note kar",
-        revision: "Next 30 days ke learning aur application goals set kar"
+        title: "Final Review and Next Steps",
+        description: "Review your progress and plan your next stage.",
+        tasks: [
+            "Review the projects you built.",
+            "Revisit your weakest technical topics.",
+            "Practice explaining your best project.",
+            "Review your resume and GitHub profile.",
+            "Reflect on your communication progress.",
+            "Write your next 3-month learning plan."
+        ]
     }
 ];
 
-const taskMeta = [
-    { id: "coding", category: "Coding", tag: "" },
-    { id: "concept", category: "Learning", tag: "tag-learning" },
-    { id: "project", category: "Project", tag: "tag-project" },
-    { id: "speaking", category: "Communication", tag: "tag-communication" },
-    { id: "recording", category: "Communication", tag: "tag-communication" },
-    { id: "revision", category: "Planning", tag: "tag-planning" }
-];
-
-const defaultState = { selectedWeek: 1, weeks: {} };
-
-function loadState() {
+// Load saved data safely.
+function loadSavedData() {
     try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (!saved) return { ...defaultState, weeks: {} };
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return saved && typeof saved === "object" ? saved : {};
+    } catch (error) {
+        return {};
+    }
+}
 
-        const parsed = JSON.parse(saved);
+let savedData = loadSavedData();
+let currentWeek = 1;
 
-        return {
-            selectedWeek: Math.min(39, Math.max(1, Number(parsed.selectedWeek) || 1)),
-            weeks: parsed.weeks && typeof parsed.weeks === "object"
-                ? parsed.weeks : {}
+const weekSelect = document.getElementById("weekSelect");
+const weekTitle = document.getElementById("weekTitle");
+const weekDates = document.getElementById("weekDates");
+const weekDescription = document.getElementById("weekDescription");
+const taskList = document.getElementById("taskList");
+const weekNotes = document.getElementById("weekNotes");
+const saveStatus = document.getElementById("saveStatus");
+const roadmap = document.getElementById("roadmap");
+
+function getWeekDates(weekNumber) {
+    const start = new Date(START_DATE);
+    start.setDate(start.getDate() + (weekNumber - 1) * 7);
+
+    const end = new Date(start);
+    end.setDate(end.getDate() + 6);
+
+    const options = {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    };
+
+    return {
+        start: start.toLocaleDateString("en-IN", options),
+        end: end.toLocaleDateString("en-IN", options)
+    };
+}
+
+function getWeekData(weekNumber) {
+    const key = String(weekNumber);
+
+    if (!savedData[key]) {
+        savedData[key] = {
+            tasks: {},
+            notes: ""
         };
-    } catch (error) {
-        console.error("Unable to load progress:", error);
-        return { ...defaultState, weeks: {} };
-    }
-}
-
-let state = loadState();
-
-function getWeekData(week = state.selectedWeek) {
-    const key = String(week);
-
-    if (!state.weeks[key] || typeof state.weeks[key] !== "object") {
-        state.weeks[key] = { completed: [], notes: "" };
     }
 
-    const data = state.weeks[key];
+    if (!savedData[key].tasks) {
+        savedData[key].tasks = {};
+    }
 
-    if (!Array.isArray(data.completed)) data.completed = [];
-    if (typeof data.notes !== "string") data.notes = "";
-
-    return data;
+    return savedData[key];
 }
 
-function saveState(message = "✓ Progress saved in your browser.") {
+function saveData() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        $("savedMessage").textContent = message;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+        saveStatus.textContent = "✓ Saved in your browser";
     } catch (error) {
-        console.error("Unable to save progress:", error);
-        $("savedMessage").textContent =
-            "Save failed. Check your browser storage settings.";
+        saveStatus.textContent = "Could not save data";
     }
 }
 
-function setupWeekSelector() {
-    $("weekSelect").innerHTML = "";
+function getCompletedCount(weekNumber) {
+    const data = getWeekData(weekNumber);
 
-    for (let week = 1; week <= plans.length; week++) {
+    return plans[weekNumber - 1].tasks.filter(
+        (_, index) => data.tasks[index] === true
+    ).length;
+}
+
+function getWeekPercent(weekNumber) {
+    return Math.round(
+        (getCompletedCount(weekNumber) / TASKS_PER_WEEK) * 100
+    );
+}
+
+function getOverallPercent() {
+    let totalCompleted = 0;
+
+    for (let week = 1; week <= TOTAL_WEEKS; week++) {
+        totalCompleted += getCompletedCount(week);
+    }
+
+    return Math.round(
+        (totalCompleted / (TOTAL_WEEKS * TASKS_PER_WEEK)) * 100
+    );
+}
+
+function populateWeekSelect() {
+    weekSelect.innerHTML = "";
+
+    for (let week = 1; week <= TOTAL_WEEKS; week++) {
+        const dates = getWeekDates(week);
         const option = document.createElement("option");
+
         option.value = week;
-        option.textContent = `Week ${week} — ${plans[week - 1].milestone}`;
-        $("weekSelect").appendChild(option);
+        option.textContent =
+            `Week ${week} — ${dates.start} to ${dates.end}`;
+
+        weekSelect.appendChild(option);
     }
-
-    $("weekSelect").value = state.selectedWeek;
-
-    $("weekSelect").addEventListener("change", () => {
-        state.selectedWeek = Number($("weekSelect").value);
-        saveState();
-        renderDashboard();
-    });
 }
 
-function renderChecklist() {
-    const plan = plans[state.selectedWeek - 1];
-    const data = getWeekData();
+function renderTasks() {
+    const plan = plans[currentWeek - 1];
+    const data = getWeekData(currentWeek);
 
-    $("checklistTitle").textContent = `Week ${state.selectedWeek} Checklist`;
-    $("weekIntro").innerHTML =
-        `<strong>Goal:</strong> ${plan.milestone}. Complete these six tasks at your own pace.`;
+    taskList.innerHTML = "";
 
-    const taskDescriptions = [
-        plan.coding,
-        plan.concept,
-        plan.project,
-        plan.speaking,
-        plan.recording,
-        plan.revision
-    ];
-
-    $("checklist").innerHTML = taskMeta.map((task, index) => {
-        const checked = data.completed.includes(task.id);
-
-        const row = document.createElement("label");
-        row.className = `task-item ${checked ? "is-done" : ""}`;
+    plan.tasks.forEach((task, index) => {
+        const label = document.createElement("label");
+        label.className = "task-item";
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.className = "task-checkbox";
-        checkbox.dataset.taskId = task.id;
-        checkbox.checked = checked;
-        checkbox.setAttribute("aria-label", taskDescriptions[index]);
+        checkbox.checked = data.tasks[index] === true;
 
-        const textBox = document.createElement("div");
-        textBox.className = "task-text";
+        const text = document.createElement("span");
+        text.className = "task-text";
+        text.textContent = task;
 
-        const title = document.createElement("strong");
-        title.textContent = taskDescriptions[index];
+        if (checkbox.checked) {
+            label.classList.add("done");
+        }
 
-        const description = document.createElement("p");
-        description.textContent = [
-            "Weekly technical practice",
-            "Learn it and explain it in your own words",
-            "Build, test and document your progress",
-            "Speak aloud for at least a few minutes",
-            "Listen again and note one improvement",
-            "Revise and plan the next step"
-        ][index];
+        checkbox.addEventListener("change", () => {
+            data.tasks[index] = checkbox.checked;
 
-        textBox.append(title, description);
+            label.classList.toggle("done", checkbox.checked);
 
-        const tag = document.createElement("span");
-        tag.className = `task-tag ${task.tag}`;
-        tag.textContent = task.category;
-
-        row.append(checkbox, textBox, tag);
-        return row.outerHTML;
-    }).join("");
-
-    $("checklist").querySelectorAll(".task-checkbox").forEach(input => {
-        input.addEventListener("change", event => {
-            const data = getWeekData();
-            const id = event.target.dataset.taskId;
-
-            if (event.target.checked) {
-                if (!data.completed.includes(id)) data.completed.push(id);
-            } else {
-                data.completed = data.completed.filter(item => item !== id);
-            }
-
-            saveState();
-            renderDashboard();
+            saveData();
+            renderStats();
+            renderRoadmap();
         });
-    });
-}
 
-function setProgress(id, value) {
-    $(id).style.width = `${Math.min(100, Math.max(0, value))}%`;
+        label.appendChild(checkbox);
+        label.appendChild(text);
+        taskList.appendChild(label);
+    });
 }
 
 function renderStats() {
-    const data = getWeekData();
-    const count = data.completed.length;
-    const total = taskMeta.length;
-    const percent = Math.round(count / total * 100);
+    const completed = getCompletedCount(currentWeek);
+    const weeklyPercent = getWeekPercent(currentWeek);
+    const overallPercent = getOverallPercent();
 
-    $("codingCount").textContent =
-        `${data.completed.includes("coding") ? 1 : 0} / 1`;
-    $("speakingCount").textContent =
-        `${data.completed.includes("speaking") ? 1 : 0} / 1`;
-    $("taskCount").textContent = `${count} / ${total}`;
-    $("overallPercent").textContent = `${percent}%`;
+    document.getElementById("weeklyProgress").textContent =
+        `${weeklyPercent}%`;
 
-    setProgress("codingBar", data.completed.includes("coding") ? 100 : 0);
-    setProgress("speakingBar", data.completed.includes("speaking") ? 100 : 0);
-    setProgress("taskBar", percent);
-    setProgress("overallBar", allWeeksPercent());
-}
+    document.getElementById("weeklyBar").style.width =
+        `${weeklyPercent}%`;
 
-function allWeeksPercent() {
-    let completed = 0;
-    const total = plans.length * taskMeta.length;
+    document.getElementById("tasksCompleted").textContent =
+        `${completed}/${TASKS_PER_WEEK}`;
 
-    for (let week = 1; week <= plans.length; week++) {
-        const data = getWeekData(week);
-        completed += taskMeta.filter(task =>
-            data.completed.includes(task.id)
-        ).length;
+    document.getElementById("taskCount").textContent =
+        `${completed}/${TASKS_PER_WEEK}`;
+
+    document.getElementById("overallProgress").textContent =
+        `${overallPercent}%`;
+
+    document.getElementById("overallBar").style.width =
+        `${overallPercent}%`;
+
+    const message = document.getElementById("completionMessage");
+
+    if (completed === TASKS_PER_WEEK) {
+        message.textContent =
+            "Amazing! You completed every goal this week. Keep it up!";
+        message.classList.add("complete");
+    } else {
+        message.textContent =
+            `${TASKS_PER_WEEK - completed} tasks left. Keep going, one step at a time!`;
+        message.classList.remove("complete");
     }
-
-    return Math.round(completed / total * 100);
 }
 
-function renderHeader() {
-    $("weekBadge").textContent = `Week ${state.selectedWeek}`;
-    $("milestone").textContent = plans[state.selectedWeek - 1].milestone;
-}
+function renderRoadmap() {
+    roadmap.innerHTML = "";
 
-function renderNotes() {
-    $("weeklyNotes").value = getWeekData().notes;
+    for (let week = 1; week <= TOTAL_WEEKS; week++) {
+        const dates = getWeekDates(week);
+        const percent = getWeekPercent(week);
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "roadmap-week";
+
+        if (week === currentWeek) {
+            button.classList.add("selected");
+        }
+
+        if (percent === 100) {
+            button.classList.add("complete");
+        }
+
+        const title = document.createElement("strong");
+        title.textContent = `Week ${week}`;
+
+        const dateText = document.createElement("span");
+        dateText.textContent = `${dates.start} – ${dates.end}`;
+
+        const progressText = document.createElement("span");
+        progressText.textContent = `${percent}% completed`;
+
+        const track = document.createElement("div");
+        track.className = "mini-progress";
+
+        const fill = document.createElement("div");
+        fill.style.width = `${percent}%`;
+
+        track.appendChild(fill);
+        button.append(title, dateText, progressText, track);
+
+        button.addEventListener("click", () => {
+            selectWeek(week);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        roadmap.appendChild(button);
+    }
 }
 
 function renderDashboard() {
-    renderHeader();
-    renderChecklist();
+    const plan = plans[currentWeek - 1];
+    const dates = getWeekDates(currentWeek);
+    const data = getWeekData(currentWeek);
+
+    weekTitle.textContent = `Week ${currentWeek}`;
+    weekDates.textContent = `${dates.start} – ${dates.end}`;
+    weekDescription.textContent = plan.description;
+
+    weekSelect.value = String(currentWeek);
+    weekNotes.value = data.notes || "";
+
+    renderTasks();
     renderStats();
-    renderNotes();
+    renderRoadmap();
 }
 
-$("weeklyNotes").addEventListener("input", () => {
-    getWeekData().notes = $("weeklyNotes").value;
-    saveState("✓ Notes saved.");
-});
+function selectWeek(weekNumber) {
+    currentWeek = Math.min(
+        TOTAL_WEEKS,
+        Math.max(1, Number(weekNumber) || 1)
+    );
 
-$("resetWeek").addEventListener("click", () => {
-    if (!confirm(`Reset Week ${state.selectedWeek} and delete its notes?`)) return;
-
-    state.weeks[String(state.selectedWeek)] = { completed: [], notes: "" };
-    saveState("Week reset successfully.");
     renderDashboard();
+}
+
+weekSelect.addEventListener("change", () => {
+    selectWeek(Number(weekSelect.value));
 });
 
-$("completeWeek").addEventListener("click", () => {
-    getWeekData().completed = taskMeta.map(task => task.id);
-    saveState("🎉 All goals for this week are complete!");
-    renderDashboard();
+weekNotes.addEventListener("input", () => {
+    getWeekData(currentWeek).notes = weekNotes.value;
+    saveData();
 });
 
-$("clearAll").addEventListener("click", () => {
-    if (!confirm("Delete saved progress and notes for all 39 weeks? This cannot be undone.")) return;
+document.getElementById("clearNotes").addEventListener("click", () => {
+    const confirmed = window.confirm(
+        "Clear the notes for this week?"
+    );
 
-    state = { selectedWeek: 1, weeks: {} };
-    saveState("All progress cleared.");
-    $("weekSelect").value = 1;
-    renderDashboard();
+    if (!confirmed) return;
+
+    getWeekData(currentWeek).notes = "";
+    weekNotes.value = "";
+    saveData();
 });
 
-document.querySelectorAll(".nav-link").forEach(link => {
-    link.addEventListener("click", () => {
-        document.querySelectorAll(".nav-link").forEach(item =>
-            item.classList.remove("active")
-        );
-        link.classList.add("active");
-    });
-});
-
-setupWeekSelector();
+populateWeekSelect();
 renderDashboard();
