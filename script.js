@@ -1,489 +1,101 @@
 
 const TOTAL_WEEKS = 39;
 const TASKS_PER_WEEK = 6;
-const START_DATE = new Date(2026, 9, 26); // Monday, 26 October 2026
-const STORAGE_KEY = "weeklyChecker_v3";
+const START_DATE = new Date(2026, 9, 26);
+const STORAGE_KEY = "weeklyCheckerPro_v1";
 
 const plans = [
-    {
-        title: "Start with HTML",
-        description: "Set up your routine and strengthen HTML fundamentals.",
-        tasks: [
-            "Study HTML structure, headings, paragraphs and links.",
-            "Practice images, lists and semantic HTML tags.",
-            "Build a simple personal profile webpage.",
-            "Learn 5 English words and use them in sentences.",
-            "Speak about yourself in English for 2 minutes.",
-            "Revise everything you learned this week."
-        ]
-    },
-    {
-        title: "HTML Forms and Tables",
-        description: "Build useful pages with forms and tables.",
-        tasks: [
-            "Learn HTML tables, rows, columns and captions.",
-            "Practice forms, labels, inputs and buttons.",
-            "Build a student registration form.",
-            "Learn 5 English words related to technology.",
-            "Give a 2-minute spoken introduction.",
-            "Review HTML and improve your previous project."
-        ]
-    },
-    {
-        title: "CSS Foundations",
-        description: "Start styling your websites with CSS.",
-        tasks: [
-            "Learn CSS selectors, colors and backgrounds.",
-            "Practice margins, padding and borders.",
-            "Learn font properties and text styling.",
-            "Style your personal profile webpage.",
-            "Explain your webpage in English for 2 minutes.",
-            "Revise CSS basics and correct mistakes."
-        ]
-    },
-    {
-        title: "CSS Layout",
-        description: "Understand how to arrange page elements.",
-        tasks: [
-            "Learn display, width, height and box sizing.",
-            "Practice Flexbox alignment and spacing.",
-            "Build a navigation bar using CSS.",
-            "Create a simple card layout.",
-            "Describe your CSS layout in English.",
-            "Revise Flexbox and improve the layout."
-        ]
-    },
-    {
-        title: "Responsive Design",
-        description: "Make your website work on mobile screens.",
-        tasks: [
-            "Learn media queries and responsive units.",
-            "Make your navigation mobile-friendly.",
-            "Build a responsive landing page.",
-            "Test your website at different screen sizes.",
-            "Practice speaking about responsive design.",
-            "Fix mobile layout issues and revise."
-        ]
-    },
-    {
-        title: "CSS Polish",
-        description: "Improve visual quality and consistency.",
-        tasks: [
-            "Practice transitions and hover effects.",
-            "Learn shadows, gradients and border radius.",
-            "Create a polished hero section.",
-            "Review spacing and typography.",
-            "Explain your design choices aloud.",
-            "Polish and revise your landing page."
-        ]
-    },
-    {
-        title: "JavaScript Introduction",
-        description: "Begin learning programming for the web.",
-        tasks: [
-            "Understand what JavaScript does in a website.",
-            "Learn variables, let, const and data types.",
-            "Practice console.log and simple expressions.",
-            "Write 5 small JavaScript examples.",
-            "Explain variables in simple English.",
-            "Revise all JavaScript basics learned so far."
-        ]
-    },
-    {
-        title: "Conditions",
-        description: "Teach your programs to make decisions.",
-        tasks: [
-            "Learn comparison and logical operators.",
-            "Practice if, else if and else.",
-            "Write a simple marks and grade checker.",
-            "Solve 5 beginner condition exercises.",
-            "Explain one program aloud in English.",
-            "Revise conditions and fix errors."
-        ]
-    },
-    {
-        title: "Loops",
-        description: "Repeat tasks using programming loops.",
-        tasks: [
-            "Understand for and while loops.",
-            "Practice counting and number patterns.",
-            "Write a multiplication table program.",
-            "Solve 5 beginner loop exercises.",
-            "Explain how one loop works.",
-            "Revise conditions and loops together."
-        ]
-    },
-    {
-        title: "Functions",
-        description: "Organize your JavaScript into reusable blocks.",
-        tasks: [
-            "Learn function declarations and parameters.",
-            "Practice return values.",
-            "Write 5 small reusable functions.",
-            "Build a simple calculator function.",
-            "Explain parameters and return values aloud.",
-            "Revise functions and earlier topics."
-        ]
-    },
-    {
-        title: "Arrays",
-        description: "Store and work with collections of data.",
-        tasks: [
-            "Learn arrays and array indexes.",
-            "Practice push, pop and length.",
-            "Loop through an array of names.",
-            "Write a small marks list program.",
-            "Explain arrays in your own words.",
-            "Revise array exercises."
-        ]
-    },
-    {
-        title: "Objects",
-        description: "Represent structured information in JavaScript.",
-        tasks: [
-            "Learn objects and key-value pairs.",
-            "Practice reading and updating properties.",
-            "Create a student object.",
-            "Combine arrays and objects in a practice task.",
-            "Describe your student object in English.",
-            "Revise arrays and objects."
-        ]
-    },
-    {
-        title: "DOM Basics",
-        description: "Connect JavaScript to your HTML page.",
-        tasks: [
-            "Understand the Document Object Model.",
-            "Practice querySelector and getElementById.",
-            "Change text and styles using JavaScript.",
-            "Build a button that changes page text.",
-            "Explain how JavaScript updates HTML.",
-            "Revise DOM selection and updates."
-        ]
-    },
-    {
-        title: "Events",
-        description: "Make webpages respond to user actions.",
-        tasks: [
-            "Learn click and input events.",
-            "Practice addEventListener.",
-            "Build an interactive counter.",
-            "Create a button-based theme switcher.",
-            "Explain event handling aloud.",
-            "Revise DOM and event concepts."
-        ]
-    },
-    {
-        title: "Form Validation",
-        description: "Make forms more useful and user-friendly.",
-        tasks: [
-            "Learn form submit events.",
-            "Practice checking empty input fields.",
-            "Show useful validation messages.",
-            "Build a basic registration form demo.",
-            "Explain the validation process in English.",
-            "Revise forms, DOM and events."
-        ]
-    },
-    {
-        title: "Small JavaScript Project",
-        description: "Combine your skills into a working project.",
-        tasks: [
-            "Plan a small interactive webpage.",
-            "Build the HTML structure.",
-            "Style the webpage with CSS.",
-            "Add JavaScript interactions.",
-            "Explain the project for 3 minutes.",
-            "Test, fix and revise the complete project."
-        ]
-    },
-    {
-        title: "Git and GitHub",
-        description: "Learn how to save and share your code.",
-        tasks: [
-            "Understand Git and version control.",
-            "Install or open Git and check its setup.",
-            "Learn repositories, commits and status.",
-            "Create or update a GitHub repository.",
-            "Practice explaining your project repository.",
-            "Review Git basics and organize your files."
-        ]
-    },
-    {
-        title: "Portfolio Website",
-        description: "Start creating a professional online presence.",
-        tasks: [
-            "Plan your portfolio sections.",
-            "Create an About Me section.",
-            "Add projects and skills to your portfolio.",
-            "Make the portfolio responsive.",
-            "Practice introducing your portfolio in English.",
-            "Publish and test the portfolio."
-        ]
-    },
-    {
-        title: "Web Fundamentals Revision",
-        description: "Strengthen your HTML, CSS and JavaScript foundation.",
-        tasks: [
-            "Revise semantic HTML and forms.",
-            "Revise CSS layout and responsive design.",
-            "Revise JavaScript conditions and loops.",
-            "Revise functions, arrays and objects.",
-            "Explain a project without reading notes.",
-            "Fix 3 issues in your previous projects."
-        ]
-    },
-    {
-        title: "C Programming Revision",
-        description: "Strengthen your college programming fundamentals.",
-        tasks: [
-            "Revise variables, data types and operators in C.",
-            "Practice if-else and switch statements.",
-            "Solve beginner loop exercises in C.",
-            "Practice arrays and strings in C.",
-            "Explain one C program aloud.",
-            "Revise mistakes and organize your solutions."
-        ]
-    },
-    {
-        title: "Problem Solving",
-        description: "Build logical thinking through small problems.",
-        tasks: [
-            "Solve 3 beginner number problems.",
-            "Practice reversing a number.",
-            "Practice sum and product of digits.",
-            "Solve 3 problems using loops.",
-            "Explain your solution step by step.",
-            "Review errors and note what you learned."
-        ]
-    },
-    {
-        title: "DSA Introduction",
-        description: "Get a beginner-friendly introduction to data structures.",
-        tasks: [
-            "Understand what data structures and algorithms mean.",
-            "Revise arrays and their operations.",
-            "Learn linear search.",
-            "Practice finding minimum and maximum values.",
-            "Explain linear search in English.",
-            "Revise the problems you solved."
-        ]
-    },
-    {
-        title: "Searching and Sorting",
-        description: "Learn the basics of finding and ordering data.",
-        tasks: [
-            "Practice linear search.",
-            "Understand binary search prerequisites.",
-            "Learn the idea behind bubble sort.",
-            "Trace a sorting example on paper.",
-            "Explain one search or sort algorithm.",
-            "Revise searching and sorting basics."
-        ]
-    },
-    {
-        title: "Project Improvement",
-        description: "Make your projects clearer and more reliable.",
-        tasks: [
-            "Choose one existing project to improve.",
-            "Improve its layout and readability.",
-            "Check mobile responsiveness.",
-            "Test the main interactions.",
-            "Write a clear project description.",
-            "Update your GitHub repository."
-        ]
-    },
-    {
-        title: "Communication Basics",
-        description: "Practice speaking clearly and confidently.",
-        tasks: [
-            "Practice a 2-minute self-introduction.",
-            "Learn 5 useful everyday English phrases.",
-            "Describe your daily routine in English.",
-            "Read aloud for 10 minutes.",
-            "Record a short spoken explanation.",
-            "Review your recording and note improvements."
-        ]
-    },
-    {
-        title: "Speaking Practice",
-        description: "Build comfort explaining familiar topics.",
-        tasks: [
-            "Speak about your hobbies for 2 minutes.",
-            "Explain one project in simple English.",
-            "Practice asking and answering 5 questions.",
-            "Learn 5 words related to your studies.",
-            "Record a short English practice session.",
-            "Review clarity, pace and pronunciation."
-        ]
-    },
-    {
-        title: "Presentation Skills",
-        description: "Learn to explain your work in an organized way.",
-        tasks: [
-            "Prepare a short project introduction.",
-            "Explain the problem your project solves.",
-            "Describe the tools you used.",
-            "Practice a 3-minute presentation.",
-            "Record your presentation once.",
-            "Revise your explanation for clarity."
-        ]
-    },
-    {
-        title: "Interview Foundations",
-        description: "Prepare answers to common beginner questions.",
-        tasks: [
-            "Draft your self-introduction.",
-            "Prepare an answer about your strengths.",
-            "Explain your favorite project.",
-            "Practice 5 basic technical questions.",
-            "Answer questions aloud without reading.",
-            "Review and improve your answers."
-        ]
-    },
-    {
-        title: "Build a Useful Website",
-        description: "Create something that solves a practical problem.",
-        tasks: [
-            "Choose a simple real-world problem.",
-            "Plan the website sections and features.",
-            "Build the HTML structure.",
-            "Style the page with responsive CSS.",
-            "Add an interaction if appropriate.",
-            "Test the site and record improvements."
-        ]
-    },
-    {
-        title: "Website Finishing",
-        description: "Polish a project for sharing with others.",
-        tasks: [
-            "Check all links and navigation.",
-            "Improve spacing and readability.",
-            "Check mobile and desktop layouts.",
-            "Add meaningful page titles and alt text.",
-            "Prepare a short project explanation.",
-            "Publish or update the finished website."
-        ]
-    },
-    {
-        title: "Debugging Skills",
-        description: "Get better at finding and fixing mistakes.",
-        tasks: [
-            "Learn to read browser console errors.",
-            "Practice tracing JavaScript variables.",
-            "Fix 3 small coding errors.",
-            "Check HTML and CSS for common mistakes.",
-            "Explain one bug and its solution.",
-            "Write down debugging lessons learned."
-        ]
-    },
-    {
-        title: "Code Quality",
-        description: "Make your code easier to read and maintain.",
-        tasks: [
-            "Use meaningful variable and function names.",
-            "Organize HTML, CSS and JS into files.",
-            "Remove unused code from one project.",
-            "Use consistent indentation.",
-            "Explain your code structure aloud.",
-            "Review and improve one old project."
-        ]
-    },
-    {
-        title: "GitHub Portfolio",
-        description: "Present your work in a clear and organized way.",
-        tasks: [
-            "Choose your best projects.",
-            "Write a useful README for one project.",
-            "Add screenshots where useful.",
-            "Check repository names and descriptions.",
-            "Practice explaining your GitHub profile.",
-            "Review all project links."
-        ]
-    },
-    {
-        title: "Internship Research",
-        description: "Understand entry-level opportunities and requirements.",
-        tasks: [
-            "Explore beginner web development internship listings.",
-            "Write down common required skills.",
-            "Compare your current skills with requirements.",
-            "Identify 3 areas to improve.",
-            "Practice explaining your learning journey.",
-            "Create a realistic next-step learning plan."
-        ]
-    },
-    {
-        title: "Resume Basics",
-        description: "Prepare a truthful, beginner-friendly resume.",
-        tasks: [
-            "Draft your education section.",
-            "List skills you can actually demonstrate.",
-            "Describe your projects clearly.",
-            "Add relevant links to your portfolio.",
-            "Practice a short introduction about yourself.",
-            "Proofread and improve your resume."
-        ]
-    },
-    {
-        title: "Mock Interview",
-        description: "Practice answering questions with confidence.",
-        tasks: [
-            "Answer 5 HTML and CSS questions.",
-            "Answer 5 JavaScript basics questions.",
-            "Explain one project from start to finish.",
-            "Practice a 2-minute self-introduction.",
-            "Record a mock interview session.",
-            "Review answers and note topics to revise."
-        ]
-    },
-    {
-        title: "Final Project",
-        description: "Bring your learning together in one project.",
-        tasks: [
-            "Choose your final project idea.",
-            "Plan its pages and features.",
-            "Build and style the main interface.",
-            "Add and test the required interactions.",
-            "Prepare a project presentation.",
-            "Test the project and publish it."
-        ]
-    },
-    {
-        title: "Final Review and Next Steps",
-        description: "Review your progress and plan your next stage.",
-        tasks: [
-            "Review the projects you built.",
-            "Revisit your weakest technical topics.",
-            "Practice explaining your best project.",
-            "Review your resume and GitHub profile.",
-            "Reflect on your communication progress.",
-            "Write your next 3-month learning plan."
-        ]
-    }
+    ["HTML Foundations", "Learn page structure, headings, links and images."],
+    ["HTML Forms & Tables", "Practice forms, labels, inputs and tables."],
+    ["CSS Foundations", "Learn selectors, colors, fonts, margins and padding."],
+    ["CSS Layout", "Practice Flexbox, spacing and navigation bars."],
+    ["Responsive Design", "Make your pages work on mobile and desktop."],
+    ["CSS Polish", "Practice gradients, transitions, hover effects and shadows."],
+    ["JavaScript Introduction", "Learn variables, data types and console.log."],
+    ["Conditions", "Practice comparison operators and if-else statements."],
+    ["Loops", "Learn for loops, while loops and number patterns."],
+    ["Functions", "Practice parameters, return values and reusable code."],
+    ["Arrays", "Learn indexes, array methods and looping through arrays."],
+    ["Objects", "Store structured information using JavaScript objects."],
+    ["DOM Basics", "Select HTML elements and change their content."],
+    ["Events", "Use click and input events to make pages interactive."],
+    ["Form Validation", "Check form input and display helpful messages."],
+    ["Mini JavaScript Project", "Combine HTML, CSS and JavaScript in a project."],
+    ["Git & GitHub", "Learn repositories, commits and sharing your code."],
+    ["Portfolio Website", "Build a portfolio to present your skills and projects."],
+    ["Web Fundamentals Revision", "Revise HTML, CSS and JavaScript basics."],
+    ["C Programming Revision", "Practice variables, conditions, loops and arrays in C."],
+    ["Problem Solving", "Solve beginner number problems and logic exercises."],
+    ["DSA Introduction", "Understand arrays, algorithms and linear search."],
+    ["Searching & Sorting", "Practice searching and basic sorting algorithms."],
+    ["Project Improvement", "Improve the design and functionality of an old project."],
+    ["Communication Basics", "Practice everyday English and self-introduction."],
+    ["Speaking Practice", "Explain familiar topics in simple English."],
+    ["Presentation Skills", "Prepare a clear presentation about one project."],
+    ["Interview Foundations", "Practice basic technical and personal questions."],
+    ["Useful Website Project", "Build a website that solves a practical problem."],
+    ["Website Finishing", "Test links, mobile layout and website readability."],
+    ["Debugging Skills", "Learn to read errors and fix common coding mistakes."],
+    ["Code Quality", "Organize files and make code easier to understand."],
+    ["GitHub Portfolio", "Improve repository descriptions and project READMEs."],
+    ["Internship Research", "Research beginner opportunities and required skills."],
+    ["Resume Basics", "Create a truthful resume featuring your real skills."],
+    ["Mock Interview", "Practice explaining projects and answering questions."],
+    ["Final Project Planning", "Plan a project that combines your learning."],
+    ["Final Project Building", "Build, test and present your final project."],
+    ["Final Review & Next Steps", "Review your progress and plan the next three months."]
 ];
 
-// Load saved data safely.
-function loadSavedData() {
+const taskTemplates = [
+    "Study the main concepts for this week's topic.",
+    "Write and test at least 3 small practice examples.",
+    "Build one small exercise or practical example.",
+    "Revise your notes and correct earlier mistakes.",
+    "Explain what you learned aloud for 2–3 minutes.",
+    "Review your work and note what to improve next."
+];
+
+function localDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function loadData() {
     try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        return saved && typeof saved === "object" ? saved : {};
-    } catch (error) {
-        return {};
+        const value = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        return value && typeof value === "object"
+            ? value
+            : { weeks: {}, days: {} };
+    } catch {
+        return { weeks: {}, days: {} };
     }
 }
 
-let savedData = loadSavedData();
-let currentWeek = 1;
+let appData = loadData();
+appData.weeks ||= {};
+appData.days ||= {};
 
-const weekSelect = document.getElementById("weekSelect");
-const weekTitle = document.getElementById("weekTitle");
-const weekDates = document.getElementById("weekDates");
-const weekDescription = document.getElementById("weekDescription");
-const taskList = document.getElementById("taskList");
-const weekNotes = document.getElementById("weekNotes");
-const saveStatus = document.getElementById("saveStatus");
-const roadmap = document.getElementById("roadmap");
+let currentWeek = 1;
+let timerSeconds = 25 * 60;
+let timerInterval = null;
+let timerRunning = false;
+let timerMode = "Focus session";
+let selectedMinutes = 25;
+
+const $ = id => document.getElementById(id);
+
+function saveData() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+        $("saveStatus").textContent = "✓ Saved in your browser";
+        $("footerStatus").textContent = "✓ Progress saved locally";
+    } catch {
+        $("saveStatus").textContent = "Unable to save. Browser storage may be full.";
+        $("footerStatus").textContent = "Saving failed";
+    }
+}
 
 function getWeekDates(weekNumber) {
     const start = new Date(START_DATE);
@@ -492,92 +104,79 @@ function getWeekDates(weekNumber) {
     const end = new Date(start);
     end.setDate(end.getDate() + 6);
 
-    const options = {
+    const format = date => date.toLocaleDateString("en-IN", {
         day: "numeric",
         month: "short",
         year: "numeric"
-    };
+    });
 
-    return {
-        start: start.toLocaleDateString("en-IN", options),
-        end: end.toLocaleDateString("en-IN", options)
-    };
+    return { start, end, label: `${format(start)} – ${format(end)}` };
 }
 
 function getWeekData(weekNumber) {
     const key = String(weekNumber);
 
-    if (!savedData[key]) {
-        savedData[key] = {
-            tasks: {},
-            notes: ""
-        };
+    if (!appData.weeks[key]) {
+        appData.weeks[key] = { tasks: {}, notes: "" };
     }
 
-    if (!savedData[key].tasks) {
-        savedData[key].tasks = {};
-    }
-
-    return savedData[key];
+    appData.weeks[key].tasks ||= {};
+    return appData.weeks[key];
 }
 
-function saveData() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
-        saveStatus.textContent = "✓ Saved in your browser";
-    } catch (error) {
-        saveStatus.textContent = "Could not save data";
-    }
+function getTasks(weekNumber) {
+    const [title, description] = plans[weekNumber - 1];
+
+    return [
+        `Study ${title}: ${description}`,
+        taskTemplates[1],
+        taskTemplates[2],
+        taskTemplates[3],
+        taskTemplates[4],
+        taskTemplates[5]
+    ];
 }
 
-function getCompletedCount(weekNumber) {
+function completedInWeek(weekNumber) {
     const data = getWeekData(weekNumber);
-
-    return plans[weekNumber - 1].tasks.filter(
-        (_, index) => data.tasks[index] === true
-    ).length;
+    return Object.values(data.tasks).filter(Boolean).length;
 }
 
-function getWeekPercent(weekNumber) {
-    return Math.round(
-        (getCompletedCount(weekNumber) / TASKS_PER_WEEK) * 100
-    );
+function weekPercent(weekNumber) {
+    return Math.round(completedInWeek(weekNumber) / TASKS_PER_WEEK * 100);
 }
 
-function getOverallPercent() {
-    let totalCompleted = 0;
+function overallPercent() {
+    let total = 0;
 
     for (let week = 1; week <= TOTAL_WEEKS; week++) {
-        totalCompleted += getCompletedCount(week);
+        total += completedInWeek(week);
     }
 
-    return Math.round(
-        (totalCompleted / (TOTAL_WEEKS * TASKS_PER_WEEK)) * 100
-    );
+    return Math.round(total / (TOTAL_WEEKS * TASKS_PER_WEEK) * 100);
 }
 
 function populateWeekSelect() {
-    weekSelect.innerHTML = "";
+    $("weekSelect").innerHTML = "";
 
     for (let week = 1; week <= TOTAL_WEEKS; week++) {
         const dates = getWeekDates(week);
         const option = document.createElement("option");
 
         option.value = week;
-        option.textContent =
-            `Week ${week} — ${dates.start} to ${dates.end}`;
-
-        weekSelect.appendChild(option);
+        option.textContent = `Week ${week} — ${dates.label}`;
+        $("weekSelect").appendChild(option);
     }
 }
 
 function renderTasks() {
-    const plan = plans[currentWeek - 1];
     const data = getWeekData(currentWeek);
+    const tasks = getTasks(currentWeek);
+    const list = $("taskList");
 
-    taskList.innerHTML = "";
+    list.innerHTML = "";
 
-    plan.tasks.forEach((task, index) => {
+    tasks.forEach((task, index) => {
         const label = document.createElement("label");
         label.className = "task-item";
 
@@ -589,99 +188,113 @@ function renderTasks() {
         text.className = "task-text";
         text.textContent = task;
 
-        if (checkbox.checked) {
-            label.classList.add("done");
-        }
+        if (checkbox.checked) label.classList.add("done");
 
         checkbox.addEventListener("change", () => {
             data.tasks[index] = checkbox.checked;
-
             label.classList.toggle("done", checkbox.checked);
 
             saveData();
             renderStats();
             renderRoadmap();
+            renderAnalytics();
         });
 
-        label.appendChild(checkbox);
-        label.appendChild(text);
-        taskList.appendChild(label);
+        label.append(checkbox, text);
+        list.appendChild(label);
     });
 }
 
 function renderStats() {
-    const completed = getCompletedCount(currentWeek);
-    const weeklyPercent = getWeekPercent(currentWeek);
-    const overallPercent = getOverallPercent();
+    const completed = completedInWeek(currentWeek);
+    const weekly = weekPercent(currentWeek);
+    const overall = overallPercent();
 
-    document.getElementById("weeklyProgress").textContent =
-        `${weeklyPercent}%`;
+    $("weeklyProgress").textContent = `${weekly}%`;
+    $("weeklyBar").style.width = `${weekly}%`;
+    $("tasksCompleted").textContent = `${completed}/6`;
+    $("taskCount").textContent = `${completed}/6`;
+    $("overallProgress").textContent = `${overall}%`;
+    $("overallBar").style.width = `${overall}%`;
 
-    document.getElementById("weeklyBar").style.width =
-        `${weeklyPercent}%`;
-
-    document.getElementById("tasksCompleted").textContent =
-        `${completed}/${TASKS_PER_WEEK}`;
-
-    document.getElementById("taskCount").textContent =
-        `${completed}/${TASKS_PER_WEEK}`;
-
-    document.getElementById("overallProgress").textContent =
-        `${overallPercent}%`;
-
-    document.getElementById("overallBar").style.width =
-        `${overallPercent}%`;
-
-    const message = document.getElementById("completionMessage");
-
-    if (completed === TASKS_PER_WEEK) {
-        message.textContent =
-            "Amazing! You completed every goal this week. Keep it up!";
-        message.classList.add("complete");
-    } else {
-        message.textContent =
-            `${TASKS_PER_WEEK - completed} tasks left. Keep going, one step at a time!`;
-        message.classList.remove("complete");
-    }
+    const message = $("completionMessage");
+    message.classList.toggle("complete", completed === TASKS_PER_WEEK);
+    message.textContent = completed === TASKS_PER_WEEK
+        ? "Amazing! You completed every goal this week. Keep it up!"
+        : `${TASKS_PER_WEEK - completed} tasks left. Keep going, one step at a time!`;
 }
 
+function renderDashboard() {
+    const [title, description] = plans[currentWeek - 1];
+    const dates = getWeekDates(currentWeek);
+    const data = getWeekData(currentWeek);
+
+    $("weekTitle").textContent = `Week ${currentWeek}: ${title}`;
+    $("weekDates").textContent = dates.label;
+    $("weekDescription").textContent = description;
+    $("weekSelect").value = String(currentWeek);
+    $("weekNotes").value = data.notes || "";
+
+    renderTasks();
+    renderStats();
+    renderRoadmap();
+    renderAnalytics();
+}
+
+function selectWeek(week) {
+    currentWeek = Math.max(1, Math.min(TOTAL_WEEKS, Number(week) || 1));
+    renderDashboard();
+}
+
+$("weekSelect").addEventListener("change", event => {
+    selectWeek(event.target.value);
+});
+
+$("weekNotes").addEventListener("input", () => {
+    getWeekData(currentWeek).notes = $("weekNotes").value;
+    saveData();
+});
+
+$("clearNotes").addEventListener("click", () => {
+    if (!confirm("Clear notes for this week?")) return;
+
+    getWeekData(currentWeek).notes = "";
+    $("weekNotes").value = "";
+    saveData();
+});
+
 function renderRoadmap() {
+    const roadmap = $("roadmap");
     roadmap.innerHTML = "";
 
     for (let week = 1; week <= TOTAL_WEEKS; week++) {
+        const [title] = plans[week - 1];
         const dates = getWeekDates(week);
-        const percent = getWeekPercent(week);
-
+        const percent = weekPercent(week);
         const button = document.createElement("button");
+
         button.type = "button";
         button.className = "roadmap-week";
+        if (week === currentWeek) button.classList.add("selected");
+        if (percent === 100) button.classList.add("complete");
 
-        if (week === currentWeek) {
-            button.classList.add("selected");
-        }
+        const name = document.createElement("strong");
+        name.textContent = `Week ${week}: ${title}`;
 
-        if (percent === 100) {
-            button.classList.add("complete");
-        }
+        const date = document.createElement("span");
+        date.textContent = dates.label;
 
-        const title = document.createElement("strong");
-        title.textContent = `Week ${week}`;
-
-        const dateText = document.createElement("span");
-        dateText.textContent = `${dates.start} – ${dates.end}`;
-
-        const progressText = document.createElement("span");
-        progressText.textContent = `${percent}% completed`;
+        const progress = document.createElement("span");
+        progress.textContent = `${percent}% complete`;
 
         const track = document.createElement("div");
         track.className = "mini-progress";
 
         const fill = document.createElement("div");
         fill.style.width = `${percent}%`;
-
         track.appendChild(fill);
-        button.append(title, dateText, progressText, track);
 
+        button.append(name, date, progress, track);
         button.addEventListener("click", () => {
             selectWeek(week);
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -691,52 +304,260 @@ function renderRoadmap() {
     }
 }
 
-function renderDashboard() {
-    const plan = plans[currentWeek - 1];
-    const dates = getWeekDates(currentWeek);
-    const data = getWeekData(currentWeek);
+// Daily focus and streak
 
-    weekTitle.textContent = `Week ${currentWeek}`;
-    weekDates.textContent = `${dates.start} – ${dates.end}`;
-    weekDescription.textContent = plan.description;
+const dailyTaskLabels = [
+    "Complete today's coding practice",
+    "Practice English speaking",
+    "Revise what I learned"
+];
 
-    weekSelect.value = String(currentWeek);
-    weekNotes.value = data.notes || "";
+function getTodayData() {
+    const key = localDateKey();
+    if (!appData.days[key]) appData.days[key] = { tasks: [false, false, false] };
 
-    renderTasks();
-    renderStats();
-    renderRoadmap();
+    const data = appData.days[key];
+    if (!Array.isArray(data.tasks)) data.tasks = [false, false, false];
+
+    while (data.tasks.length < 3) data.tasks.push(false);
+    return data;
 }
 
-function selectWeek(weekNumber) {
-    currentWeek = Math.min(
-        TOTAL_WEEKS,
-        Math.max(1, Number(weekNumber) || 1)
-    );
-
-    renderDashboard();
+function isDayComplete(key) {
+    const day = appData.days[key];
+    return Boolean(day && Array.isArray(day.tasks) && day.tasks.length >= 3
+        && day.tasks.slice(0, 3).every(Boolean));
 }
 
-weekSelect.addEventListener("change", () => {
-    selectWeek(Number(weekSelect.value));
+function calculateStreak() {
+    let streak = 0;
+    const today = new Date();
+
+    // If today isn't complete yet, count the completed streak ending yesterday.
+    if (!isDayComplete(localDateKey(today))) {
+        today.setDate(today.getDate() - 1);
+    }
+
+    for (let i = 0; i < 366; i++) {
+        const key = localDateKey(today);
+
+        if (!isDayComplete(key)) break;
+
+        streak++;
+        today.setDate(today.getDate() - 1);
+    }
+
+    return streak;
+}
+
+function renderDailyTasks() {
+    const today = new Date();
+    $("todayDate").textContent = today.toLocaleDateString("en-IN", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+    const data = getTodayData();
+    const container = $("dailyTasks");
+    container.innerHTML = "";
+
+    dailyTaskLabels.forEach((task, index) => {
+        const label = document.createElement("label");
+        label.className = "daily-task";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = data.tasks[index] === true;
+
+        const text = document.createElement("span");
+        text.textContent = task;
+
+        if (checkbox.checked) label.classList.add("done");
+
+        checkbox.addEventListener("change", () => {
+            data.tasks[index] = checkbox.checked;
+            label.classList.toggle("done", checkbox.checked);
+            saveData();
+            updateStreak();
+            renderDailyStatus();
+        });
+
+        label.append(checkbox, text);
+        container.appendChild(label);
+    });
+
+    renderDailyStatus();
+    updateStreak();
+}
+
+function renderDailyStatus() {
+    const count = getTodayData().tasks.filter(Boolean).length;
+
+    $("dailyStatus").textContent = count === 3
+        ? "✓ All daily goals complete!"
+        : `${count}/3 daily habits complete`;
+}
+
+function updateStreak() {
+    $("streakCount").textContent = calculateStreak();
+}
+
+// Progress chart: each bar opens its corresponding week.
+
+function renderAnalytics() {
+    const container = $("analytics");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    for (let week = 1; week <= TOTAL_WEEKS; week++) {
+        const percent = weekPercent(week);
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "chart-week";
+        button.title = `Week ${week}: ${percent}% complete`;
+
+        if (week === currentWeek) button.classList.add("selected");
+
+        const area = document.createElement("span");
+        area.className = "chart-bar-area";
+
+        const bar = document.createElement("span");
+        bar.className = "chart-bar";
+        bar.style.height = `${percent}%`;
+        area.appendChild(bar);
+
+        const number = document.createElement("strong");
+        number.textContent = `W${week}`;
+
+        const value = document.createElement("small");
+        value.textContent = `${percent}%`;
+
+        button.append(area, number, value);
+        button.addEventListener("click", () => {
+            selectWeek(week);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        container.appendChild(button);
+    }
+}
+
+// Study timer
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timerSeconds / 60);
+    const seconds = timerSeconds % 60;
+
+    $("timerDisplay").textContent =
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+function stopTimer() {
+    if (timerInterval !== null) clearInterval(timerInterval);
+    timerInterval = null;
+    timerRunning = false;
+}
+
+function chooseTimer(minutes, mode, button) {
+    stopTimer();
+    selectedMinutes = minutes;
+    timerSeconds = minutes * 60;
+    timerMode = mode;
+
+    $("timerMode").textContent = mode;
+    $("timerMessage").textContent = "Ready when you are. Let's focus!";
+    document.querySelectorAll(".mode-button").forEach(item => {
+        item.classList.toggle("active", item === button);
+    });
+
+    updateTimerDisplay();
+    $("startTimer").textContent = "Start";
+}
+
+$("startTimer").addEventListener("click", () => {
+    if (timerRunning) return;
+
+    if (timerSeconds <= 0) timerSeconds = selectedMinutes * 60;
+
+    timerRunning = true;
+    $("startTimer").textContent = "Running...";
+    $("timerMessage").textContent = `${timerMode} in progress. Keep going!`;
+
+    timerInterval = setInterval(() => {
+        timerSeconds--;
+        updateTimerDisplay();
+
+        if (timerSeconds <= 0) {
+            stopTimer();
+            $("startTimer").textContent = "Start";
+            $("timerMessage").textContent = `${timerMode} finished! Take a moment to reset.`;
+
+            // Browser may block notifications or sound, so the page message is reliable.
+            alert(`${timerMode} finished!`);
+        }
+    }, 1000);
 });
 
-weekNotes.addEventListener("input", () => {
-    getWeekData(currentWeek).notes = weekNotes.value;
-    saveData();
+$("pauseTimer").addEventListener("click", () => {
+    stopTimer();
+    $("startTimer").textContent = "Resume";
+    $("timerMessage").textContent = "Timer paused.";
 });
 
-document.getElementById("clearNotes").addEventListener("click", () => {
-    const confirmed = window.confirm(
-        "Clear the notes for this week?"
-    );
-
-    if (!confirmed) return;
-
-    getWeekData(currentWeek).notes = "";
-    weekNotes.value = "";
-    saveData();
+$("resetTimer").addEventListener("click", () => {
+    stopTimer();
+    timerSeconds = selectedMinutes * 60;
+    $("startTimer").textContent = "Start";
+    $("timerMessage").textContent = "Timer reset. Ready when you are!";
+    updateTimerDisplay();
 });
+
+document.querySelectorAll(".mode-button").forEach(button => {
+    button.addEventListener("click", () => {
+        chooseTimer(
+            Number(button.dataset.minutes),
+            button.dataset.mode,
+            button
+        );
+    });
+});
+
+// Export all saved progress as a JSON backup.
+
+$("exportBtn").addEventListener("click", () => {
+    const backup = {
+        exportedAt: new Date().toISOString(),
+        startDate: "2026-10-26",
+        totalWeeks: TOTAL_WEEKS,
+        plans,
+        progress: appData
+    };
+
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = `weekly-checker-backup-${localDateKey()}.json`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+
+    $("footerStatus").textContent = "Progress backup exported.";
+});
+
+// Start the app.
 
 populateWeekSelect();
 renderDashboard();
+renderDailyTasks();
+updateTimerDisplay();
