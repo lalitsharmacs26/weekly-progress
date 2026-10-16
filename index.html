@@ -4,19 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Checker | My Growth</title>
+    <meta name="theme-color" content="#111b32">
+    <title>Weekly Checker | Growth Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="app">
     <aside class="sidebar">
         <a href="#home" class="brand">
             <span class="brand-icon">☑</span>
-            <span>
-                <strong>Weekly Checker</strong>
-                <small>Plan · Learn · Grow</small>
-            </span>
+            <span><strong>Weekly Checker</strong><small>Plan · Learn · Grow</small></span>
         </a>
 
         <nav class="nav-links">
@@ -38,6 +35,7 @@
             <div>
                 <span class="eyebrow">YOUR PERSONAL GROWTH SPACE</span>
                 <h2>My Dashboard</h2>
+                <p class="muted">Your journey to becoming a full-stack developer.</p>
             </div>
             <div class="week-control">
                 <label for="weekSelect">📅 Select Week</label>
@@ -50,47 +48,29 @@
             <div class="hero-content">
                 <span class="eyebrow light">YOUR 9-MONTH MISSION</span>
                 <h1>Hello, Future Full-Stack Developer! 🚀</h1>
-                <p>Track your weekly tasks, build real projects and prepare for your first internship.</p>
-                <div class="milestone">
-                    ✦ Next milestone: <strong id="milestone">JavaScript Fundamentals</strong>
-                </div>
+                <p>Learn, build projects, improve your communication and prepare for internships.</p>
+                <div class="milestone">✦ Current milestone: <strong id="milestone"></strong></div>
             </div>
-                <div class="hero-decoration">Keep growing<br>every day.</div>
         </section>
 
         <section class="stats-grid" id="progress">
             <article class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-icon green">⌘</span>
-                    <span class="stat-label">Coding Sessions</span>
-                </div>
-                <h2 id="codingCount">0 / 6</h2>
+                <div class="stat-top"><span class="stat-icon green">⌘</span><span class="stat-label">Coding Goal</span></div>
+                <h2 id="codingCount">0 / 1</h2>
                 <div class="progress-track"><div id="codingBar" class="progress-fill green-fill"></div></div>
             </article>
-
             <article class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-icon blue">🎙</span>
-                    <span class="stat-label">Speaking Practice</span>
-                </div>
-                <h2 id="speakingCount">0 / 5</h2>
+                <div class="stat-top"><span class="stat-icon blue">🎙</span><span class="stat-label">Speaking Goal</span></div>
+                <h2 id="speakingCount">0 / 1</h2>
                 <div class="progress-track"><div id="speakingBar" class="progress-fill blue-fill"></div></div>
             </article>
-
             <article class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-icon orange">☑</span>
-                    <span class="stat-label">Weekly Tasks</span>
-                </div>
+                <div class="stat-top"><span class="stat-icon orange">☑</span><span class="stat-label">Weekly Tasks</span></div>
                 <h2 id="taskCount">0 / 6</h2>
                 <div class="progress-track"><div id="taskBar" class="progress-fill orange-fill"></div></div>
             </article>
-
             <article class="stat-card">
-                <div class="stat-top">
-                    <span class="stat-icon purple">★</span>
-                    <span class="stat-label">Overall Progress</span>
-                </div>
+                <div class="stat-top"><span class="stat-icon purple">★</span><span class="stat-label">All-Week Progress</span></div>
                 <h2 id="overallPercent">0%</h2>
                 <div class="progress-track"><div id="overallBar" class="progress-fill purple-fill"></div></div>
             </article>
@@ -99,13 +79,11 @@
         <div class="dashboard-grid">
             <section class="panel checklist-panel" id="tasks">
                 <div class="panel-heading">
-                    <div>
-                        <span class="heading-icon">✓</span>
-                        <h2>This Week's Checklist</h2>
-                    </div>
+                    <div><span class="heading-icon">✓</span><h2 id="checklistTitle">This Week's Checklist</h2></div>
                     <span class="week-badge" id="weekBadge">Week 1</span>
                 </div>
 
+                <div class="week-intro" id="weekIntro"></div>
                 <div id="checklist" class="checklist"></div>
 
                 <div class="checklist-footer">
@@ -117,83 +95,31 @@
 
             <div class="right-column">
                 <section class="panel" id="roadmap">
-                    <div class="panel-heading">
-                        <div>
-                            <span class="heading-icon blue-text">◈</span>
-                            <h2>9-Month Roadmap</h2>
-                        </div>
-                    </div>
+                    <div class="panel-heading"><div><span class="heading-icon blue-text">◈</span><h2>9-Month Roadmap</h2></div></div>
                     <div class="roadmap-list">
-                        <div class="roadmap-item">
-                            <span class="roadmap-number r-blue">1</span>
-                            <div class="roadmap-info">
-                                <strong>Months 1–2: Frontend</strong>
-                                <p>HTML, CSS, JavaScript basics</p>
-                            </div>
-                        </div>
-                        <div class="roadmap-item">
-                            <span class="roadmap-number r-green">2</span>
-                            <div class="roadmap-info">
-                                <strong>Months 3–4: JavaScript</strong>
-                                <p>DOM, APIs, Git, projects</p>
-                            </div>
-                        </div>
-                        <div class="roadmap-item">
-                            <span class="roadmap-number r-purple">3</span>
-                            <div class="roadmap-info">
-                                <strong>Months 5–6: Full Stack</strong>
-                                <p>React, Node.js, database</p>
-                            </div>
-                        </div>
-                        <div class="roadmap-item">
-                            <span class="roadmap-number r-orange">4</span>
-                            <div class="roadmap-info">
-                                <strong>Months 7–9: Internship</strong>
-                                <p>Projects, resume, interviews</p>
-                            </div>
-                        </div>
+                        <div class="roadmap-item"><span class="roadmap-number r-blue">1</span><div class="roadmap-info"><strong>Months 1–2: Frontend</strong><p>HTML, CSS, JavaScript basics</p></div></div>
+                        <div class="roadmap-item"><span class="roadmap-number r-green">2</span><div class="roadmap-info"><strong>Months 3–4: JavaScript</strong><p>DOM, APIs, Git and React intro</p></div></div>
+                        <div class="roadmap-item"><span class="roadmap-number r-purple">3</span><div class="roadmap-info"><strong>Months 5–6: Full Stack</strong><p>React, Node.js, database</p></div></div>
+                        <div class="roadmap-item"><span class="roadmap-number r-orange">4</span><div class="roadmap-info"><strong>Months 7–9: Internship</strong><p>Projects, resume and interviews</p></div></div>
                     </div>
-                    <p class="roadmap-note">Follow the roadmap at your own pace. Strong fundamentals come first.</p>
+                    <p class="roadmap-note">Complete each milestone at your own pace. Strong fundamentals come first.</p>
                 </section>
 
                 <section class="panel">
-                    <div class="panel-heading">
-                        <div>
-                            <span class="heading-icon">◷</span>
-                            <h2>Daily Routine</h2>
-                        </div>
-                        <span class="muted">1.5 hours / day</span>
-                    </div>
+                    <div class="panel-heading"><div><span class="heading-icon">◷</span><h2>Daily Routine</h2></div><span class="muted">90 min/day</span></div>
                     <div class="routine-grid">
-                        <div class="routine-card">
-                            <span class="routine-icon green">⌘</span>
-                            <strong>60 min</strong>
-                            <small>Coding</small>
-                        </div>
-                        <div class="routine-card">
-                            <span class="routine-icon purple">🎙</span>
-                            <strong>20 min</strong>
-                            <small>Speaking</small>
-                        </div>
-                        <div class="routine-card">
-                            <span class="routine-icon orange">☑</span>
-                            <strong>10 min</strong>
-                            <small>Review</small>
-                        </div>
+                        <div class="routine-card"><span class="routine-icon green">⌘</span><strong>60 min</strong><small>Coding</small></div>
+                        <div class="routine-card"><span class="routine-icon purple">🎙</span><strong>20 min</strong><small>Speaking</small></div>
+                        <div class="routine-card"><span class="routine-icon orange">☑</span><strong>10 min</strong><small>Review</small></div>
                     </div>
                 </section>
 
                 <section class="panel">
-                    <div class="panel-heading">
-                        <div>
-                            <span class="heading-icon blue-text">↗</span>
-                            <h2>Quick Links</h2>
-                        </div>
-                    </div>
+                    <div class="panel-heading"><div><span class="heading-icon blue-text">↗</span><h2>Quick Links</h2></div></div>
                     <div class="quick-links">
-                        <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development" target="_blank" rel="noopener noreferrer">📖 Learning Resources ↗</a>
-                        <a href="https://github.com/" target="_blank" rel="noopener noreferrer">⌘ GitHub ↗</a>
-                        <a href="https://internshala.com/" target="_blank" rel="noopener noreferrer">💼 Internship Platforms ↗</a>
+                        <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development" target="_blank" rel="noopener noreferrer">📖 Web Development Resources ↗</a>
+                        <a href="https://github.com/skills/introduction-to-github" target="_blank" rel="noopener noreferrer">⌘ GitHub Practice ↗</a>
+                        <a href="https://internshala.com/" target="_blank" rel="noopener noreferrer">💼 Internship Search ↗</a>
                         <a href="https://www.bbc.co.uk/learningenglish" target="_blank" rel="noopener noreferrer">🎙 English Practice ↗</a>
                     </div>
                 </section>
@@ -201,35 +127,20 @@
         </div>
 
         <section class="panel notes-panel" id="notes">
-            <div class="panel-heading">
-                <div>
-                    <span class="heading-icon">✎</span>
-                    <h2>Weekly Notes & Reflection</h2>
-                </div>
-                <span class="muted">Auto-saved in your browser</span>
-            </div>
-            <label for="weeklyNotes">What did you learn? What was difficult? What will you do next week?</label>
+            <div class="panel-heading"><div><span class="heading-icon">✎</span><h2>Weekly Notes & Reflection</h2></div><span class="muted">Auto-saved</span></div>
+            <label for="weeklyNotes">What did you learn? What was difficult? What will you do next?</label>
             <textarea id="weeklyNotes" rows="4" placeholder="This week I learned..."></textarea>
         </section>
 
         <section class="panel settings-panel" id="settings">
-            <div class="panel-heading">
-                <div>
-                    <span class="heading-icon">⚙</span>
-                    <h2>Settings</h2>
-                </div>
-            </div>
-            <p class="muted">Your progress is saved locally in this browser.</p>
+            <div class="panel-heading"><div><span class="heading-icon">⚙</span><h2>Settings</h2></div></div>
+            <p class="muted">Your progress is stored in this browser.</p>
             <button class="btn btn-danger" id="clearAll">Clear All Saved Progress</button>
         </section>
 
-        <footer>
-            <span>✦ Consistency beats talent.</span>
-            <span>Keep going, you're doing great! 💙</span>
-        </footer>
+        <footer><span>✦ Consistency beats talent.</span><span>Keep going, you're doing great! 💙</span></footer>
     </main>
 </div>
-
 <script src="script.js"></script>
 </body>
 </html>
